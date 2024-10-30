@@ -21,7 +21,7 @@
 <body class="page-container-bg-solid page-sidebar-closed hide-logo page-header-fixed">
     <!-- BEGIN HEADER -->
     <div>
-        <%@ include file="/commons/admin/header.jsp" %>
+        <%@ include file="/commons/admin/header.html" %>
     </div>
     <!-- END HEADER -->
     
@@ -42,7 +42,7 @@
             <!-- BEGIN FOOTER -->
             <!-- header -->
             <div>
-                <%@ include file="/commons/admin/footer.jsp" %>
+                <%@ include file="/commons/admin/footer.html" %>
             </div>
             <!-- END FOOTER -->
         </div>

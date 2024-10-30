@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Category List with Search and Pagination</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col">
+                <h2>Category Management</h2>
+                
+                <!-- Message Alert -->
+                <div th:if="${message}" class="alert alert-success">
+                    [[${message}]]
+                </div>
+
+                <!-- Search Form -->
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <form th:action="@{/admin/categories/searchpaginated}">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="name" 
+                                       th:value="${name}" placeholder="Search by name...">
+                                <button class="btn btn-outline-secondary">Search</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <a th:href="@{/admin/categories/add}" class="btn btn-primary">Add New Category</a>
+                    </div>
+                </div>
+
+                <!-- Categories Table -->
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Category ID</th>
+                            <th>Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="category : ${categoryPage.content}">
+                            <td>[[${category.categoryId}]]</td>
+                            <td>[[${category.name}]]</td>
+                            <td>
+                                <a th:href="@{'/admin/categories/edit/' + ${category.categoryId}}" 
+                                   class="btn btn-warning btn-sm">Edit</a>
+                                <a th:href="@{'/admin/categories/delete/' + ${category.categoryId}}"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Are you sure to delete this category?');">Delete</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Pagination -->
+                <div class="row" th:if="${categoryPage.totalPages > 0}">
+                    <div class="col-sm-12">
+                        <nav>
+                            <ul class="pagination justify-content-center">
+                                <!-- First Page -->
+                                <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
+                                    <a class="page-link" th:href="@{/admin/categories/searchpaginated(name=${name}, page=1)}">First</a>
+                                </li>
+                                
+                                <!-- Previous Page -->
+                                <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
+                                    <a class="page-link" 
+                                       th:href="@{/admin/categories/searchpaginated(name=${name}, page=${currentPage - 1})}">Previous</a>
+                                </li>
+
+                                <!-- Page Numbers -->
+                                <li class="page-item" 
+                                    th:each="pageNumber : ${pageNumbers}"
+                                    th:classappend="${pageNumber == categoryPage.number + 1} ? 'active'">
+                                    <a class="page-link" 
+                                       th:href="@{/admin/categories/searchpaginated(name=${name}, page=${pageNumber})}"
+                                       th:text="${pageNumber}">
+                                    </a>
+                                </li>
+
+                                <!-- Next Page -->
+                                <li class="page-item" 
+                                    th:classappend="${currentPage == categoryPage.totalPages} ? 'disabled'">
+                                    <a class="page-link" 
+                                       th:href="@{/admin/categories/searchpaginated(name=${name}, page=${currentPage + 1})}">Next</a>
+                                </li>
+
+                                <!-- Last Page -->
+                                <li class="page-item" 
+                                    th:classappend="${currentPage == categoryPage.totalPages} ? 'disabled'">
+                                    <a class="page-link" 
+                                       th:href="@{/admin/categories/searchpaginated(name=${name}, page=${categoryPage.totalPages})}">Last</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    
+                    <!-- Page Size Options -->
+                    <div class="col-sm-12 text-center mt-2">
+                        <span>Show </span>
+                        <select class="form-select-sm" id="size" onchange="window.location.href=this.value">
+                            <option th:value="@{/admin/categories/searchpaginated(name=${name}, size=5)}" 
+                                    th:selected="${categoryPage.size == 5}">5</option>
+                            <option th:value="@{/admin/categories/searchpaginated(name=${name}, size=10)}" 
+                                    th:selected="${categoryPage.size == 10}">10</option>
+                            <option th:value="@{/admin/categories/searchpaginated(name=${name}, size=15)}" 
+                                    th:selected="${categoryPage.size == 15}">15</option>
+                            <option th:value="@{/admin/categories/searchpaginated(name=${name}, size=20)}" 
+                                    th:selected="${categoryPage.size == 20}">20</option>
+                        </select>
+                        <span> items per page</span>
+                    </div>
+
+                    <!-- Page Info -->
+                    <div class="col-sm-12 text-center mt-2">
+                        <div class="text-muted">
+                            Showing page [[${categoryPage.number + 1}]] of [[${categoryPage.totalPages}]]
+                            | Total items: [[${categoryPage.totalElements}]]
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

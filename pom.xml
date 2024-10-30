@@ -114,6 +114,24 @@
 			<artifactId>tomcat-embed-jasper</artifactId>
 			
 		</dependency>
+		
+		<!-- Thymeleaf Core -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+		
+		<!-- Thymeleaf Layout Dialect - cho phép sử dụng layout -->
+		<dependency>
+		    <groupId>nz.net.ultraq.thymeleaf</groupId>
+		    <artifactId>thymeleaf-layout-dialect</artifactId>
+		</dependency>
+		
+		<!-- Thymeleaf Extra Security - nếu bạn cần tích hợp với Spring Security -->
+		<dependency>
+		    <groupId>org.thymeleaf.extras</groupId>
+		    <artifactId>thymeleaf-extras-springsecurity6</artifactId>
+		</dependency>
 
 	</dependencies>
 	<build>
@@ -131,6 +149,6 @@
 				</configuration>
 			</plugin>
 		</plugins>
-	</build>
+	</build> 
 
 </project>
