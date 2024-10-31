@@ -1,0 +1,29 @@
+@charset "ISO-8859-1";
+
+.table-responsive {
+    margin-bottom: 1rem;
+}
+
+.btn-sm {
+    margin-right: 0.5rem;
+}
+
+.alert {
+    margin-top: 1rem;
+}
+
+/* Optional: Add some hover effects for the table */
+.table-hover tbody tr:hover {
+    background-color: rgba(0,0,0,.075);
+    cursor: pointer;
+}
+
+/* Add some spacing for the action buttons */
+.actions {
+    white-space: nowrap;
+}
+
+/* Make sure the footer stays at the bottom */
+.footer {
+    margin-top: auto;
+}

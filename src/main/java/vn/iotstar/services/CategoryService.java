@@ -2,44 +2,48 @@ package vn.iotstar.services;
 
 import java.util.List;
 import java.util.Optional;
-
+import java.util.function.Function;
 
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.FluentQuery.FetchableFluentQuery;
 
-import vn.iotstar.entity.Category;
-
+import vn.iotstar.entity.CategoryEntity;
 
 public interface CategoryService {
-List<Category> findByNameContaining(String name);
-    
-    Page<Category> findByNameContaining(String name, Pageable pageable);
-    
-    <S extends Category> S save(S entity);
-    
-    <S extends Category> Optional<S> findOne(Example<S> example);
-    
-    List<Category> findAll();
-    
-    List<Category> findAllById(Iterable<Long> ids);
-    
-    <S extends Category> Page<S> findAll(Example<S> example, Pageable pageable);
-    
-    Optional<Category> findById(Long id);
-    
-    long count();
-    
-    void deleteById(Long id);
-    
-    void delete(Category entity);
-    
-    <S extends Category> List<S> findAll(Example<S> example, Sort sort);
-    
-    void deleteAll();
 
-	Page<Category> findAll(Pageable pageable);
+	void deleteAll();
 
-	
+	<S extends CategoryEntity> List<S> findAll(Example<S> example);
+
+	void delete(CategoryEntity entity);
+
+	void deleteById(Long id);
+
+	long count();
+
+	<S extends CategoryEntity, R> R findBy(Example<S> example, Function<FetchableFluentQuery<S>, R> queryFunction);
+
+	<S extends CategoryEntity> long count(Example<S> example);
+
+	Optional<CategoryEntity> findById(Long id);
+
+	<S extends CategoryEntity> Page<S> findAll(Example<S> example, Pageable pageable);
+
+	List<CategoryEntity> findAll();
+
+	Page<CategoryEntity> findAll(Pageable pageable);
+
+	List<CategoryEntity> findAll(Sort sort);
+
+	<S extends CategoryEntity> Optional<S> findOne(Example<S> example);
+
+	<S extends CategoryEntity> S save(S entity);
+
+	Page<CategoryEntity> findByNameContaining(String name, Pageable pageable);
+
+	List<CategoryEntity> findByName(String name);
+
 }

@@ -2,86 +2,112 @@ package vn.iotstar.services;
 
 import java.util.List;
 import java.util.Optional;
-
+import java.util.function.Function;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.FluentQuery.FetchableFluentQuery;
 import org.springframework.stereotype.Service;
 
-import vn.iotstar.entity.*;
-import vn.iotstar.reponsitory.*;
+import vn.iotstar.entity.CategoryEntity;
+import vn.iotstar.repository.CategoryRepository;
 
-
-// Khai báo service
 @Service
-public class CategoryServiceImpl implements CategoryService {
+public class CategoryServiceImpl implements CategoryService{
+	@Autowired
+	private CategoryRepository cateRepo;
 
-    @Autowired
-    private CategoryRepository categoryRepository;
-
-	public CategoryServiceImpl(CategoryRepository categoryRepository) {
-		this.categoryRepository = categoryRepository;
-	}
-
-	public List<Category> findByNameContaining(String name) {
-		return categoryRepository.findByNameContaining(name);
-	}
-
-	public Page<Category> findByNameContaining(String name, Pageable pageable) {
-		return categoryRepository.findByNameContaining(name, pageable);
-	}
-
-	public <S extends Category> S save(S entity) {
-		return categoryRepository.save(entity);
-	}
-
-	public <S extends Category> Optional<S> findOne(Example<S> example) {
-		return categoryRepository.findOne(example);
-	}
-
-	public List<Category> findAll() {
-		return categoryRepository.findAll();
-	}
-
-	public List<Category> findAllById(Iterable<Long> ids) {
-		return categoryRepository.findAllById(ids);
-	}
-
-	public <S extends Category> Page<S> findAll(Example<S> example, Pageable pageable) {
-		return categoryRepository.findAll(example, pageable);
+	public CategoryServiceImpl(CategoryRepository cateRepo) {
+		this.cateRepo = cateRepo;
 	}
 
 	@Override
-	public Page<Category> findAll(Pageable pageable) {
-		return categoryRepository.findAll(pageable);
+	public List<CategoryEntity> findByName(String name) {
+		return cateRepo.findByName(name);
 	}
 
-	public Optional<Category> findById(Long id) {
-		return categoryRepository.findById(id);
+	@Override
+	public Page<CategoryEntity> findByNameContaining(String name, Pageable pageable) {
+		return cateRepo.findByNameContaining(name, pageable);
 	}
 
+	@Override
+	public <S extends CategoryEntity> S save(S entity) {
+		return cateRepo.save(entity);
+	}
+
+	@Override
+	public <S extends CategoryEntity> Optional<S> findOne(Example<S> example) {
+		return cateRepo.findOne(example);
+	}
+
+	@Override
+	public List<CategoryEntity> findAll(Sort sort) {
+		return cateRepo.findAll(sort);
+	}
+
+	@Override
+	public Page<CategoryEntity> findAll(Pageable pageable) {
+		return cateRepo.findAll(pageable);
+	}
+
+	@Override
+	public List<CategoryEntity> findAll() {
+		return cateRepo.findAll();
+	}
+
+
+	@Override
+	public <S extends CategoryEntity> Page<S> findAll(Example<S> example, Pageable pageable) {
+		return cateRepo.findAll(example, pageable);
+	}
+
+	@Override
+	public Optional<CategoryEntity> findById(Long id) {
+		return cateRepo.findById(id);
+	}
+
+	@Override
+	public <S extends CategoryEntity> long count(Example<S> example) {
+		return cateRepo.count(example);
+	}
+
+	@Override
+	public <S extends CategoryEntity, R> R findBy(Example<S> example,
+			Function<FetchableFluentQuery<S>, R> queryFunction) {
+		return cateRepo.findBy(example, queryFunction);
+	}
+
+	@Override
 	public long count() {
-		return categoryRepository.count();
+		return cateRepo.count();
 	}
 
+	@Override
 	public void deleteById(Long id) {
-		categoryRepository.deleteById(id);
+		cateRepo.deleteById(id);
 	}
 
-	public void delete(Category entity) {
-		categoryRepository.delete(entity);
+
+	@Override
+	public void delete(CategoryEntity entity) {
+		cateRepo.delete(entity);
 	}
 
-	public <S extends Category> List<S> findAll(Example<S> example, Sort sort) {
-		return categoryRepository.findAll(example, sort);
+	@Override
+	public <S extends CategoryEntity> List<S> findAll(Example<S> example) {
+		return cateRepo.findAll(example);
 	}
 
+	@Override
 	public void deleteAll() {
-		categoryRepository.deleteAll();
+		cateRepo.deleteAll();
 	}
 	
-    
+	
+	
+	
 }

@@ -1,0 +1,14 @@
+/* Navbar cơ bản */
+.navbar {
+    padding: 1rem;  /* Chỉ tăng padding một chút */
+}
+
+
+.logo-img {
+    height: 80px;        /* Giảm kích thước xuống */
+    width: 80px;         /* Thêm width để đảm bảo tỷ lệ vuông */
+    object-fit: cover;   /* Đảm bảo ảnh không bị méo */
+    border-radius: 50%;  /* Tạo hiệu ứng tròn (tùy chọn) */
+    margin-right: 10px;  /* Khoảng cách với text */
+    vertical-align: middle; /* Căn chỉnh với text */
+}
